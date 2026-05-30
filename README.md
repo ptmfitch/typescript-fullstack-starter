@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TypeScript Full-Stack Starter
 
-## Getting Started
+Minimal Next.js + Prisma + SQLite starter for building and testing AI coding workflows.
 
-First, run the development server:
+## Prerequisites
+
+- Node.js 20+
+- npm
+
+## Quick start
 
 ```bash
+cp .env.example .env
+npm install
+npm run db:push
+npm run db:seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Task | Command |
+|------|---------|
+| Dev server | `npm run dev` |
+| Build | `npm run build` |
+| Production start | `npm run start` |
+| Typecheck | `npm run typecheck` |
+| Lint | `npm run lint` |
+| Test | `npm run test` |
+| Full check | `npm run check` |
+| Push schema | `npm run db:push` |
+| Seed data | `npm run db:seed` |
+| DB browser | `npm run db:studio` |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+prisma/schema.prisma   Database models
+src/lib/notes.ts       Shared queries and validation
+src/actions/           Server Actions (UI mutations)
+src/app/api/           REST API routes
+src/app/components/    Client components
+src/app/page.tsx       Server Component homepage
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `GET /api/health` — smoke test
+- `GET /api/notes` — list notes
+- `POST /api/notes` — create `{ "title": "...", "body": "..." }`
+- `DELETE /api/notes/:id` — delete a note
 
-## Deploy on Vercel
+## Extend this
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Add models in `prisma/schema.prisma`, then `npm run db:push`
+2. Add query helpers in `src/lib/`
+3. Expose REST endpoints under `src/app/api/`
+4. Build UI in `src/app/` with Server Components + client components as needed
+5. Swap SQLite for Postgres by changing the Prisma datasource and `DATABASE_URL`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT
