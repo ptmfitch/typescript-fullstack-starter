@@ -7,7 +7,7 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 /** Resolve SQLite URL for Next.js (cwd) while keeping CLI-relative paths in .env. */
-function resolveSqliteDatabaseUrl(): string {
+export function resolveSqliteDatabaseUrl(): string {
   const url = process.env.DATABASE_URL ?? "file:./dev.db";
   if (!url.startsWith("file:")) {
     return url;
